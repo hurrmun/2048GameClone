@@ -3,8 +3,8 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 2 ], 
-    [ 0, 0, 8, 4 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 2, 2, 2, 2 ], 
     [ 0, 2, 0, 0 ], 
     [ 16, 0, 0, 2 ]
 ] 
@@ -39,6 +39,51 @@ const renderBoard = () => {
 //     renderBoard()
 // }
 
+//* Merging Tiles
+const mergeTilesLeft = () => {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (board[i][j] === board[i][j + 1]) {
+                board[i][j] = board[i][j] * 2
+                board[i][j+1] = 0
+            }
+        }
+    }
+}
+
+const mergeTilesRight = () => {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 1; j < 4; j++) {
+            if (board[i][j] === board[i][j - 1]) {
+                board[i][j] = board[i][j] * 2
+                board[i][j-1] = 0
+            }
+        }
+    }
+}
+
+const mergeTilesUp = () => {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board[i][j] === board[i + 1][j]) {
+                board[i][j] = board[i][j] * 2
+                board[i + 1][j] = 0
+            }
+        }
+    }
+}
+
+const mergeTilesDown = () => {
+    for (let i = 1; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board[i][j] === board[i - 1][j]) {
+                board[i][j] = board[i][j] * 2
+                board[i - 1][j] = 0
+            }
+        }
+    }
+}
+
 const shiftTilesLeft = () => {
     for (let i = 0; i < board.length; i++ ) {
         //* sorts the board so 0 is pushed to the right
@@ -48,8 +93,8 @@ const shiftTilesLeft = () => {
             }
         })
     }
-    renderBoard()
 }
+
 
 const shiftTilesRight = () => {
     for (let i = 0; i < board.length; i++ ) {
@@ -61,7 +106,6 @@ const shiftTilesRight = () => {
         })
         
     }
-    renderBoard()
 }
 
 
@@ -88,11 +132,10 @@ const shiftTilesUp = () => {
             }
         }
     }
-    renderBoard()
 }
 
 const shiftTilesDown = () => {
-    for (let i = 0; i < board.length; i++ ) {
+    for (let i = 0; i < 3; i++ ) {
         for (let j = 0; j < board[i].length; j++) {
             //* checks if there is a value on the board and if it is the first tile
             if (board[i][j] && i !== 3) {
@@ -105,7 +148,7 @@ const shiftTilesDown = () => {
                 //?
                 } else if (i < 2 && !board[i+2][j]) {
                     let x = board[i].splice(j, 1, 0)
-                    board[i-2][j] = x[0]
+                    board[i+2][j] = x[0]
                 //? 
                 } else if (i < 3 && !board[i+1][j]) {
                     let x = board[i].splice(j, 1, 0)
@@ -114,9 +157,13 @@ const shiftTilesDown = () => {
             }
         }
     }
-    renderBoard()
 }
 
+
+
+const generateTile = () => {
+
+}
 
 
 //* Run Functions here
@@ -125,12 +172,24 @@ const main = () => {
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             shiftTilesLeft();
+            mergeTilesLeft();
+            shiftTilesLeft();
+            renderBoard();
         } else if (event.which === 39) { //? right
             shiftTilesRight();
+            mergeTilesRight();
+            shiftTilesRight();
+            renderBoard();
         } else if (event.which === 38) { //? up
             shiftTilesUp();
+            mergeTilesUp();
+            shiftTilesUp();
+            renderBoard();
         } else if (event.which === 40) { //? down
             shiftTilesDown();
+            mergeTilesDown();
+            shiftTilesDown();
+            renderBoard();
         }
     })
     
