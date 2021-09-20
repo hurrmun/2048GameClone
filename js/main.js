@@ -4,11 +4,12 @@
 //* board state
 const board = [
     [ 0, 0, 0, 0 ], 
-    [ 2, 2, 2, 2 ], 
-    [ 0, 2, 0, 0 ], 
-    [ 16, 0, 0, 2 ]
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
+
 
 
 //* update user's display to reflect board state
@@ -159,36 +160,59 @@ const shiftTilesDown = () => {
     }
 }
 
+//* Generate a random tile on an empty space
+const randomNewTile = [2, 4]
 
+const random1to4 = () => Math.floor(Math.random()*4)
+const random1to2 = () => Math.floor(Math.random()*2)
 
 const generateTile = () => {
+    let y = random1to4()
+    let x = random1to4()
+    //* when selected tile is filled, find a new empty tile
+    while (board[y][x] !== 0) {
+        y = random1to4()
+        x = random1to4()
+    }
+    board[y][x] = randomNewTile[random1to2()]
+}
 
+
+//* Starts the game with 2 randomly generated tiles
+const startGame = () => {
+    generateTile()
+    generateTile()
+    renderBoard()
 }
 
 
 //* Run Functions here
 const main = () => { 
-    const $boardDiv = $('#gameboard')
+    startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             shiftTilesLeft();
             mergeTilesLeft();
             shiftTilesLeft();
+            generateTile();
             renderBoard();
         } else if (event.which === 39) { //? right
             shiftTilesRight();
             mergeTilesRight();
             shiftTilesRight();
+            generateTile();
             renderBoard();
         } else if (event.which === 38) { //? up
             shiftTilesUp();
             mergeTilesUp();
             shiftTilesUp();
+            generateTile();
             renderBoard();
         } else if (event.which === 40) { //? down
             shiftTilesDown();
             mergeTilesDown();
             shiftTilesDown();
+            generateTile();
             renderBoard();
         }
     })
