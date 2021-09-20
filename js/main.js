@@ -1,47 +1,40 @@
 //* Write Functions here
 
-// .children(".tile")
-
+// display: $('.tilerow').eq(0).children().eq(0)
+//* board state
 const board = [
-    [ 
-        {tile: 0, display: $('.tilerow').eq(0).children().eq(0), value: 0}, 
-        {tile: 1, display: $('.tilerow').eq(0).children().eq(1), value: 0}, 
-        {tile: 2, display: $('.tilerow').eq(0).children().eq(2), value: 0}, 
-        {tile: 3, display: $('.tilerow').eq(0).children().eq(3), value: 0} 
-    ], [ 
-        {tile: 0, display: $('.tilerow').eq(1).children().eq(0), value: 0}, 
-        {tile: 1, display: $('.tilerow').eq(1).children().eq(1), value: 0}, 
-        {tile: 2, display: $('.tilerow').eq(1).children().eq(2), value: 0}, 
-        {tile: 3, display: $('.tilerow').eq(1).children().eq(3), value: 0} 
-    ], [ 
-        {tile: 0, display: $('.tilerow').eq(2).children().eq(0), value: 0}, 
-        {tile: 1, display: $('.tilerow').eq(2).children().eq(1), value: 0}, 
-        {tile: 2, display: $('.tilerow').eq(2).children().eq(2), value: 0}, 
-        {tile: 3, display: $('.tilerow').eq(2).children().eq(3), value: 0} 
-    ], [ 
-        {tile: 0, display: $('.tilerow').eq(2).children().eq(0), value: 0}, 
-        {tile: 1, display: $('.tilerow').eq(2).children().eq(1), value: 0}, 
-        {tile: 2, display: $('.tilerow').eq(2).children().eq(2), value: 0}, 
-        {tile: 3, display: $('.tilerow').eq(2).children().eq(3), value: 0} 
-    ]
-]
+    [ 2, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 4, 0 ], 
+    [ 0, 0, 0, 0 ]
+] 
+// to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
 
-
-
-
+//* update user's display to reflect board state
+const renderBoard = () => {
+    for (let i = 0; i < board.length; i++ ) {
+        for (let j = 0; j < board[i].length; j++) {
+            $('.tilerow').eq(i).children().eq(j).text(board[i][j])
+        }
+    }
+}
 
 
 
 
 //* Run Functions here
-const main = () => {
+const main = () => { 
+    
+    
+    
+    renderBoard()
     // console.log($('.tilerow').eq(0).children().eq(0).text())
     // const $row0 = $('.tilerow').eq(0)
     // const $row0tiles = $row0.children()
     // const $tile1 = $row0tiles.eq(0)
     // console.log($tile1.text())
-    console.log(board[0][1].display.text())
+    // test()
 }
 
 $(main)
