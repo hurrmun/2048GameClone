@@ -1,18 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2048 Game Clone</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>c
-</head>
-<body>
-    
-</body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;600;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>2048</h1>
+      <p>
+        HOW TO PLAY: Use your arrow keys to move the tiles. Tiles with the same
+        number merge into one when they touch. Add them up to reach 2048!
+      </p>
+      <div>Score: 0000</div>
+      <button>New Game</button>
+      <div id="gameboard">
+        <div class="tilerow">
+          <div class="tile">1024</div>
+          <div class="tile">8</div>
+          <div class="tile">16</div>
+          <div class="tile">256</div>
+        </div>
+        <div class="tilerow">
+          <div class="tile">1024</div>
+          <div class="tile">8</div>
+          <div class="tile">16</div>
+          <div class="tile">256</div>
+        </div>
+        <div class="tilerow">
+          <div class="tile">1024</div>
+          <div class="tile">8</div>
+          <div class="tile">16</div>
+          <div class="tile">256</div>
+        </div>
+        <div class="tilerow">
+          <div class="tile">1024</div>
+          <div class="tile">8</div>
+          <div class="tile">16</div>
+          <div class="tile">256</div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

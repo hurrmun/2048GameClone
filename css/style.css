@@ -3,3 +3,19 @@ body {
   /* weights 300, 600, 900 */
   font-size: 12px;
 }
+
+.tilerow {
+  margin-bottom: 0.2rem;
+}
+
+.tile {
+  background-color: rgb(227, 167, 90);
+  height: 6rem;
+  width: 6rem;
+  line-height: 6rem;
+  display: inline-block;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+}
