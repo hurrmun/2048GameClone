@@ -3,10 +3,10 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ], 
-    [ 0, 2, 0, 2 ], 
-    [ 0, 0, 0, 0 ]
+    [ 0, 0, 0, 2 ], 
+    [ 0, 0, 8, 4 ], 
+    [ 0, 2, 0, 0 ], 
+    [ 16, 0, 0, 2 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
@@ -59,10 +59,63 @@ const shiftTilesRight = () => {
                 return -1
             }
         })
+        
     }
     renderBoard()
 }
 
+
+const shiftTilesUp = () => {
+    for (let i = 0; i < board.length; i++ ) {
+        for (let j = 0; j < board[i].length; j++) {
+            //* checks if there is a value on the board and if it is the first tile
+            if (board[i][j] && i !== 0) {
+                //* save value of that number
+                //* if the above row's number is 0 shift it up
+                if (i > 2 && !board[i-3][j]) {
+                    let x = board[i].splice(j, 1, 0)
+                    board[i-3][j] = x[0]
+                } else if (i > 1 && !board[i-2][j]) {
+                    let x = board[i].splice(j, 1, 0)
+                    board[i-2][j] = x[0]
+                } else if (i > 0 && !board[i-1][j]) {
+                    let x = board[i].splice(j, 1, 0)
+                    board[i-1][j] = x[0]
+                // } else if (!board[i-1][j]) {
+                //     let x = board[i].splice(j, 1, 0)
+                //     board[i-1][j] = x[0]
+                } 
+            }
+        }
+    }
+    renderBoard()
+}
+
+const shiftTilesDown = () => {
+    for (let i = 0; i < board.length; i++ ) {
+        for (let j = 0; j < board[i].length; j++) {
+            //* checks if there is a value on the board and if it is the first tile
+            if (board[i][j] && i !== 3) {
+                //* save value of that number
+                //* if the above row's number is 0 shift it up
+                //? 
+                if (i < 1 && !board[i+3][j]) {
+                    let x = board[i].splice(j, 1, 0)
+                    board[i+3][j] = x[0]
+                //?
+                } else if (i < 2 && !board[i+2][j]) {
+                    let x = board[i].splice(j, 1, 0)
+                    board[i-2][j] = x[0]
+                //? 
+                } else if (i < 3 && !board[i+1][j]) {
+                    let x = board[i].splice(j, 1, 0)
+                    board[i+1][j] = x[0]
+                }  
+            }
+        }
+    }
+    renderBoard()
+}
 
 
 
@@ -75,9 +128,9 @@ const main = () => {
         } else if (event.which === 39) { //? right
             shiftTilesRight();
         } else if (event.which === 38) { //? up
-
+            shiftTilesUp();
         } else if (event.which === 40) { //? down
-
+            shiftTilesDown();
         }
     })
     
