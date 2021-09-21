@@ -16,9 +16,10 @@ let maybeGameOver = 0
 // 12 counts for column
 // if 16 is reached, it means all adjacent tiles are unique
 
-
+//! WIP 
 const gameOver = () => {
-    
+    $(document).off("keydown")
+    $('.container').append($('<h2>').text("You Lose :("))
 }
 
 const checkGameOver = () => {
@@ -28,11 +29,11 @@ const checkGameOver = () => {
         checkRow(board[i])
         //* check if all columns are still in play
     }
-    if (maybeGameOver === 16) {
+    if (maybeGameOver === 16 && isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown() ) {
         isGameOver = true
         return gameOver()
     }
-    return isGameOver = false
+    return maybeGameOver = 0
 }
 
 const checkRow = (arr) => {
