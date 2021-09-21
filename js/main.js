@@ -3,13 +3,38 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
-    [ 0, 4, 4, 4 ], 
-    [ 0, 4, 0, 0 ], 
-    [ 0, 4, 0, 0 ]
+    [ 2, 4, 2, 4 ], 
+    [ 4, 2, 4, 2 ], 
+    [ 2, 4, 0, 4 ], 
+    [ 4, 2, 4, 2 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
+let isGameOver = false
+let maybeGameOver = 0
+
+const checkGameOver = () => {
+    for (let i = 0; i < board.length; i++ ) {
+        //* check if all rows are still in play
+        checkRow(board[i])
+        //* check if all columns are still in play
+        for (let j = 0; j < board[i].length; j++) {
+            if (i === 0) {
+                
+            }
+        }
+    }
+}
+
+const checkRow = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 0 || arr[i] === arr[i+1]) {
+            return isGameOver = false
+        }
+        // arr[i] !== arr[i+1]
+    }
+    return maybeGameOver += 1
+}
 
 
 //* update user's display to reflect board state
