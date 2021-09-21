@@ -4,9 +4,9 @@
 //* board state
 const board = [
     [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ]
+    [ 0, 4, 4, 4 ], 
+    [ 0, 4, 0, 0 ], 
+    [ 0, 4, 0, 0 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
@@ -26,20 +26,6 @@ const renderBoard = () => {
     }
 }
 
-//* move version 1
-// const moveTilesLeft = () => {
-//     for (let i = 0; i < board.length; i++ ) {
-//         for (let j = 0; j < board[i].length; j++) {
-//             //* checks if there is a value on the board and if it is the first tile
-//             if (board[i][j] && j !== 0) {
-//                 let x = board[i].splice(j, 1, board[i][j + 1])
-//                 board[i][j-1] = x[0]
-//             }
-//         }
-//     }
-//     renderBoard()
-// }
-
 //* Merging Tiles
 const mergeTilesLeft = () => {
     for (let i = 0; i < 4; i++) {
@@ -53,8 +39,8 @@ const mergeTilesLeft = () => {
 }
 
 const mergeTilesRight = () => {
-    for (let i = 0; i < 4; i++) {
-        for (let j = 1; j < 4; j++) {
+    for (let i = 3; i >= 0; i--) {
+        for (let j = 3; j > 0; j--) {
             if (board[i][j] === board[i][j - 1]) {
                 board[i][j] = board[i][j] * 2
                 board[i][j-1] = 0
@@ -75,8 +61,8 @@ const mergeTilesUp = () => {
 }
 
 const mergeTilesDown = () => {
-    for (let i = 1; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
+    for (let i = 3; i >= 0; i--) {
+        for (let j = 3; j > 0; j--) {
             if (board[i][j] === board[i - 1][j]) {
                 board[i][j] = board[i][j] * 2
                 board[i - 1][j] = 0
@@ -126,9 +112,6 @@ const shiftTilesUp = () => {
                 } else if (i > 0 && !board[i-1][j]) {
                     let x = board[i].splice(j, 1, 0)
                     board[i-1][j] = x[0]
-                // } else if (!board[i-1][j]) {
-                //     let x = board[i].splice(j, 1, 0)
-                //     board[i-1][j] = x[0]
                 } 
             }
         }
@@ -188,7 +171,7 @@ const startGame = () => {
 
 //* Run Functions here
 const main = () => { 
-    startGame()
+    // startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             shiftTilesLeft();
