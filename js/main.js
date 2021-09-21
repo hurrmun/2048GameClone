@@ -3,15 +3,23 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 2, 4, 2, 4 ], 
-    [ 4, 2, 4, 2 ], 
-    [ 2, 4, 0, 0 ], 
-    [ 4, 2, 4, 2 ]
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 4, 0, 0, 0 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
 let isGameOver = false
 let maybeGameOver = 0
+// 4 counts for row
+// 12 counts for column
+// if 16 is reached, it means all adjacent tiles are unique
+
+
+const gameOver = () => {
+
+}
 
 const checkGameOver = () => {
     checkColumn(board)
@@ -21,7 +29,8 @@ const checkGameOver = () => {
         //* check if all columns are still in play
     }
     if (maybeGameOver === 16) {
-        return isGameOver = true
+        isGameOver = true
+        return gameOver()
     }
     return isGameOver = false
 }
@@ -98,7 +107,7 @@ const mergeTilesUp = () => {
 }
 
 const mergeTilesDown = () => {
-    for (let i = 3; i >= 0; i--) {
+    for (let i = 3; i > 0; i--) {
         for (let j = 3; j > 0; j--) {
             if (board[i][j] === board[i - 1][j]) {
                 board[i][j] = board[i][j] * 2
@@ -179,6 +188,39 @@ const shiftTilesDown = () => {
         }
     }
 }
+//* Combine shift and merge to get move tile function
+const moveTilesLeft = () => {
+    shiftTilesLeft();
+    mergeTilesLeft();
+    shiftTilesLeft();
+    generateTile()
+    renderBoard()
+}
+
+const moveTilesRight = () => {
+    shiftTilesRight();
+    mergeTilesRight();
+    shiftTilesRight();
+    generateTile()
+    renderBoard()
+}
+
+const moveTilesUp = () => {
+    shiftTilesUp();
+    mergeTilesUp();
+    shiftTilesUp();
+    generateTile()
+    renderBoard()
+}
+
+const moveTilesDown = () => {
+    shiftTilesDown();
+    mergeTilesDown();
+    shiftTilesDown();
+    generateTile()
+    renderBoard()
+}
+
 
 //* Generate a random tile on an empty space
 const randomNewTile = [2, 4]
@@ -205,35 +247,57 @@ const startGame = () => {
     renderBoard()
 }
 
+//* Check if the board is static or not
+
+const isStaticLeft = () => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
+            if (board[i][j] === 0 && board[i][j+1] || board[i][j] === board[i][j+1] && board[i][j] !== 0) {
+                console.log(board[i][j], board[i][j+1])
+                return false
+            } 
+        }
+    }
+    return true
+}
+
+const isStaticLeft = () => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
+            if (board[i][j] === 0 && board[i][j+1] || board[i][j] === board[i][j+1] && board[i][j] !== 0) {
+                console.log(board[i][j], board[i][j+1])
+                return false
+            } 
+        }
+    }
+    return true
+}
+
+
+
+
+
 
 //* Run Functions here
 const main = () => { 
     // startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
-            shiftTilesLeft();
-            mergeTilesLeft();
-            shiftTilesLeft();
-            generateTile();
-            renderBoard();
+            if (!isStaticLeft()) {
+                moveTilesLeft()
+                checkGameOver()
+            }
         } else if (event.which === 39) { //? right
-            shiftTilesRight();
-            mergeTilesRight();
-            shiftTilesRight();
-            generateTile();
-            renderBoard();
+            moveTilesRight()
+            checkGameOver()
         } else if (event.which === 38) { //? up
-            shiftTilesUp();
-            mergeTilesUp();
-            shiftTilesUp();
-            generateTile();
-            renderBoard();
+            moveTilesUp()
+            checkGameOver()
         } else if (event.which === 40) { //? down
-            shiftTilesDown();
-            mergeTilesDown();
-            shiftTilesDown();
-            generateTile();
-            renderBoard();
+            moveTilesDown()
+            checkGameOver()
         }
     })
     
