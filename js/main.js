@@ -6,7 +6,7 @@ const board = [
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
-    [ 4, 0, 0, 0 ]
+    [ 0, 0, 0, 0 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
@@ -18,7 +18,7 @@ let maybeGameOver = 0
 
 
 const gameOver = () => {
-
+    
 }
 
 const checkGameOver = () => {
@@ -108,7 +108,7 @@ const mergeTilesUp = () => {
 
 const mergeTilesDown = () => {
     for (let i = 3; i > 0; i--) {
-        for (let j = 3; j > 0; j--) {
+        for (let j = 0; j < 4; j++) {
             if (board[i][j] === board[i - 1][j]) {
                 board[i][j] = board[i][j] * 2
                 board[i - 1][j] = 0
@@ -250,11 +250,10 @@ const startGame = () => {
 //* Check if the board is static or not
 
 const isStaticLeft = () => {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
             //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
             if (board[i][j] === 0 && board[i][j+1] || board[i][j] === board[i][j+1] && board[i][j] !== 0) {
-                console.log(board[i][j], board[i][j+1])
                 return false
             } 
         }
@@ -262,12 +261,11 @@ const isStaticLeft = () => {
     return true
 }
 
-const isStaticLeft = () => {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
+const isStaticRight = () => {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 3; j > 0; j--) {
             //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
-            if (board[i][j] === 0 && board[i][j+1] || board[i][j] === board[i][j+1] && board[i][j] !== 0) {
-                console.log(board[i][j], board[i][j+1])
+            if (board[i][j] === 0 && board[i][j-1] || board[i][j] === board[i][j-1] && board[i][j] !== 0) {
                 return false
             } 
         }
@@ -276,13 +274,36 @@ const isStaticLeft = () => {
 }
 
 
+const isStaticUp = () => {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+            //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
+            if (board[i][j] === 0 && board[i+1][j] || board[i][j] === board[i+1][j] && board[i][j] !== 0) {
+                return false
+            } 
+        }
+    }
+    return true
+}
+
+const isStaticDown = () => {
+    for (let i = 3; i > 0; i--) {
+        for (let j = 0; j < 4; j++) {
+            //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
+            if (board[i][j] === 0 && board[i-1][j] || board[i][j] === board[i-1][j] && board[i][j] !== 0) {
+                return false
+            } 
+        }
+    }
+    return true
+}
 
 
 
 
 //* Run Functions here
 const main = () => { 
-    // startGame()
+    startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             if (!isStaticLeft()) {
@@ -290,14 +311,20 @@ const main = () => {
                 checkGameOver()
             }
         } else if (event.which === 39) { //? right
-            moveTilesRight()
-            checkGameOver()
+            if (!isStaticRight()) {
+                moveTilesRight()
+                checkGameOver()
+            }
         } else if (event.which === 38) { //? up
-            moveTilesUp()
-            checkGameOver()
+            if (!isStaticUp()) {
+                moveTilesUp()
+                checkGameOver()
+            }
         } else if (event.which === 40) { //? down
-            moveTilesDown()
-            checkGameOver()
+            if (!isStaticDown()) {
+                moveTilesDown()
+                checkGameOver()
+            }
         }
     })
     
