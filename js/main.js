@@ -46,6 +46,16 @@ const checkGameOver = () => {
     return isGameOver = false
 }
 
+const restartGame = () => {
+    for (let i = 0; i < board.length; i++) {
+        board[i] = board[i].map((number) => number = 0)
+    }
+    isGameOver = false
+    startGame()
+    renderBoard()
+}
+
+
 //* update user's display to reflect board state
 const renderBoard = () => {
     for (let i = 0; i < board.length; i++ ) {
@@ -211,10 +221,9 @@ const moveTilesDown = () => {
 
 
 //* Generate a random tile on an empty space
-const randomNewTile = [2, 4]
-
 const random1to4 = () => Math.floor(Math.random()*4)
-const random1to2 = () => Math.floor(Math.random()*2)
+const random1to10 = () => Math.floor(Math.random()*10)
+
 
 const generateTile = () => {
     let y = random1to4()
@@ -224,7 +233,12 @@ const generateTile = () => {
         y = random1to4()
         x = random1to4()
     }
-    board[y][x] = randomNewTile[random1to2()]
+    const randomNewTile = [2, 4]
+    if (random1to10() < 9) {
+        board[y][x] = randomNewTile[0]
+    } else {
+        board[y][x] = randomNewTile[1]
+    }
 }
 
 
@@ -323,6 +337,7 @@ const main = () => {
             }
         }
     })
+    $(".restart").on("click", restartGame)
     
     renderBoard()
     // console.log($('.tilerow').eq(0).children().eq(0).text())
