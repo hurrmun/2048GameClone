@@ -3,10 +3,10 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 2048, 1024, 512, 256 ], 
-    [ 16, 32, 64, 128 ], 
-    [ 8, 4, 2, 0 ], 
-    [ 0, 0, 0, 0 ]
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ],
+    [ 0, 0, 0, 0 ] 
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 
@@ -155,17 +155,17 @@ const shiftTilesRight = () => {
 const shiftTilesUp = () => {
     for (let i = 0; i < board.length; i++ ) {
         for (let j = 0; j < board[i].length; j++) {
-            //* checks if there is a value on the board and if it is the first tile
+            //* checks if there is a value on the board and if it is the first row
             if (board[i][j] && i !== 0) {
                 //* save value of that number
                 //* if the above row's number is 0 shift it up
-                if (i > 2 && !board[i-3][j]) {
+                if (i > 2 && !board[i-3][j]) { //! if i is 3
                     let x = board[i].splice(j, 1, 0)
                     board[i-3][j] = x[0]
-                } else if (i > 1 && !board[i-2][j]) {
+                } else if (i > 1 && !board[i-2][j]) { //! if i is 2 or 3
                     let x = board[i].splice(j, 1, 0)
                     board[i-2][j] = x[0]
-                } else if (i > 0 && !board[i-1][j]) {
+                } else if (i > 0 && !board[i-1][j]) { //! if i is 1, 2 or 3
                     let x = board[i].splice(j, 1, 0)
                     board[i-1][j] = x[0]
                 } 
@@ -175,22 +175,17 @@ const shiftTilesUp = () => {
 }
 
 const shiftTilesDown = () => {
-    for (let i = 0; i < 3; i++ ) {
+    for (let i = board.length - 1; i >= 0; i-- ) {
         for (let j = 0; j < board[i].length; j++) {
-            //* checks if there is a value on the board and if it is the first tile
+            //* checks if there is a value on the board and if it is the last row
             if (board[i][j] && i !== 3) {
-                //* save value of that number
-                //* if the above row's number is 0 shift it up
-                //? 
-                if (i < 1 && !board[i+3][j]) {
+                if (i < 1 && !board[i+3][j]) { //! 
                     let x = board[i].splice(j, 1, 0)
                     board[i+3][j] = x[0]
-                //?
-                } else if (i < 2 && !board[i+2][j]) {
+                } else if (i < 2 && !board[i+2][j]) { //! if i is 1 or 0
                     let x = board[i].splice(j, 1, 0)
                     board[i+2][j] = x[0]
-                //? 
-                } else if (i < 3 && !board[i+1][j]) {
+                } else if (i < 3 && !board[i+1][j]) { //! if i is 2, 1 or 0
                     let x = board[i].splice(j, 1, 0)
                     board[i+1][j] = x[0]
                 }  
