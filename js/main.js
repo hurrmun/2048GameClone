@@ -3,9 +3,9 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ], 
+    [ 2048, 1024, 512, 256 ], 
+    [ 16, 32, 64, 128 ], 
+    [ 8, 4, 2, 0 ], 
     [ 0, 0, 0, 0 ]
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
@@ -68,6 +68,18 @@ const renderBoard = () => {
             }
         }
     }
+    $( ".tile:contains('-')" ).css( "background-color", "#ddeaf9" );
+    $( ".tile:contains('2')" ).css( "background-color", "#c9e4f8" );
+    $( ".tile:contains('4')" ).css( "background-color", "#a9c7ef" );
+    $( ".tile:contains('8')" ).css( "background-color", "#b1acec" );
+    $( ".tile:contains('16')" ).css( "background-color", "#8e8ecd" );
+    $( ".tile:contains('32')" ).css( "background-color", "#7369dd" );
+    $( ".tile:contains('64')" ).css( "background-color", "#2366be" );
+    $( ".tile:contains('128')" ).css( "background-color", "#1565A2" );
+    $( ".tile:contains('256')" ).css( "background-color", "#15447A" );
+    $( ".tile:contains('512')" ).css( "background-color", "#389ae5" );
+    $( ".tile:contains('1024')" ).css( "background-color", "#a98375" );
+    $( ".tile:contains('2048')" ).css( "background-color", "#c78283" );
 }
 
 //* Merging Tiles
@@ -305,7 +317,7 @@ const isStaticDown = () => {
 
 //* Run Functions here
 const main = () => { 
-    startGame()
+    // startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             if (isStaticLeft()) {
@@ -338,7 +350,7 @@ const main = () => {
         }
     })
     $(".restart").on("click", restartGame)
-    
+
     renderBoard()
     // console.log($('.tilerow').eq(0).children().eq(0).text())
     // const $row0 = $('.tilerow').eq(0)
