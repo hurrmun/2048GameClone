@@ -9,9 +9,8 @@ const board = [
     [ 0, 0, 0, 0 ] 
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
-
+let score = 0
 let isGameOver = false
-let maybeGameOver = 0
 // 4 counts for row
 // 12 counts for column
 // if 16 is reached, it means all adjacent tiles are unique
@@ -51,10 +50,10 @@ const restartGame = () => {
         board[i] = board[i].map((number) => number = 0)
     }
     isGameOver = false
+    score = 0
     startGame()
     renderBoard()
 }
-
 
 //* update user's display to reflect board state
 const renderBoard = () => {
@@ -68,6 +67,7 @@ const renderBoard = () => {
             }
         }
     }
+    $('.gameScore').text(score)
     $( ".tile:contains('-')" ).css( "background-color", "#ddeaf9" );
     $( ".tile:contains('2')" ).css( "background-color", "#c9e4f8" );
     $( ".tile:contains('4')" ).css( "background-color", "#a9c7ef" );
@@ -243,8 +243,10 @@ const generateTile = () => {
     const randomNewTile = [2, 4]
     if (random1to10() < 9) {
         board[y][x] = randomNewTile[0]
+        score += 10
     } else {
         board[y][x] = randomNewTile[1]
+        score += 20
     }
 }
 
@@ -312,7 +314,7 @@ const isStaticDown = () => {
 
 //* Run Functions here
 const main = () => { 
-    // startGame()
+    startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             if (isStaticLeft()) {
