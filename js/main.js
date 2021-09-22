@@ -20,13 +20,28 @@ let maybeGameOver = 0
 const gameOver = () => {
     $(document).off("keydown")
     $('.container').append($('<h2>').text("You Lose :("))
-    $('.container').append($('<button>').text("Restart Game"))
+    const $restartButton = $('<button>').addClass("restart").text("Restart Game")
+    $('.container').append($restartButton)
 }
 
+const youWin = () => {
+    $(document).off("keydown")
+    $('.container').append($('<h2>').text("You Win :)"))
+    const $restartButton = $('<button>').addClass("restart").text("Restart Game")
+    $('.container').append($restartButton)
+    const $continueButton = $('<button>').addClass("restart").text("Continue Playing")
+    $('.container').append($continueButton)
+}
+
+const check2048 = (number) => number === 2048
+
 const checkGameOver = () => {
+    const allTiles = board[0].concat(board[1], board[2], board[3])
     if (isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown()) {
         isGameOver = true
         return gameOver()
+    } else if (allTiles.some(check2048)) {
+        return youWin()
     }
     return isGameOver = false
 }
@@ -279,22 +294,30 @@ const main = () => {
     startGame()
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
-            if (!isStaticLeft()) {
+            if (isStaticLeft()) {
+                console.log("Invalid move!")
+            } else {
                 moveTilesLeft()
                 checkGameOver()
             }
         } else if (event.which === 39) { //? right
-            if (!isStaticRight()) {
+            if (isStaticRight()) {
+                console.log("Invalid move!")
+            } else {
                 moveTilesRight()
                 checkGameOver()
             }
         } else if (event.which === 38) { //? up
-            if (!isStaticUp()) {
+            if (isStaticUp()) {
+                console.log("Invalid move!")
+            } else {
                 moveTilesUp()
                 checkGameOver()
             }
         } else if (event.which === 40) { //? down
-            if (!isStaticDown()) {
+            if (isStaticDown()) {
+                console.log("Invalid move!")
+            } else {
                 moveTilesDown()
                 checkGameOver()
             }
