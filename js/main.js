@@ -20,54 +20,26 @@ let maybeGameOver = 0
 const gameOver = () => {
     $(document).off("keydown")
     $('.container').append($('<h2>').text("You Lose :("))
+    $('.container').append($('<button>').text("Restart Game"))
 }
 
 const checkGameOver = () => {
-    checkColumn(board)
-    for (let i = 0; i < board.length; i++ ) {
-        //* check if all rows are still in play
-        checkRow(board[i])
-        //* check if all columns are still in play
-    }
-    if (maybeGameOver === 16 && isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown() ) {
+    if (isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown()) {
         isGameOver = true
         return gameOver()
     }
-    return maybeGameOver = 0
+    return isGameOver = false
 }
-
-const checkRow = (arr) => {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === 0 || arr[i] === arr[i+1]) {
-            return isGameOver = false
-        }
-    }
-    return maybeGameOver += 1
-}
-
-//? Accepts an array of arrays
-const checkColumn = (arr) => {
-    //* checking all the numbers at once instead of 1 by 1
-    for (let i = 0; i < arr.length - 1; i++) {
-        for (let j = 0; j < arr.length; j++) {
-            if (arr[i][j] === 0 || arr[i][j] === arr[i + 1][j]) {
-                isGameOver = false
-            }
-            maybeGameOver += 1
-        }
-    }
-}
-
 
 //* update user's display to reflect board state
 const renderBoard = () => {
     for (let i = 0; i < board.length; i++ ) {
         for (let j = 0; j < board[i].length; j++) {
             //* if there is no value or if false-y
-            if (!board[i][j]) {
-                $('.tilerow').eq(i).children().eq(j).text("-")
-            } else {
+            if (board[i][j]) {
                 $('.tilerow').eq(i).children().eq(j).text(board[i][j])
+            } else {
+                $('.tilerow').eq(i).children().eq(j).text("-")
             }
         }
     }
@@ -341,3 +313,4 @@ const main = () => {
 $(main)
 
 //keydown is better for arrow keys
+
