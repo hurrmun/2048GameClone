@@ -3,10 +3,10 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ], 
-    [ 0, 0, 0, 0 ],
-    [ 0, 0, 0, 0 ] 
+    [ 2, 4, 2, 4 ], 
+    [ 64, 32, 64, 32 ], 
+    [ 2, 4, 512, 1024 ], 
+    [ 0, 64, 128, 0 ] 
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 let score = 0
@@ -18,9 +18,9 @@ let isGameOver = false
 //! WIP 
 const gameOver = () => {
     $(document).off("keydown")
-    $('.container').append($('<h2>').text("You Lose :("))
-    const $restartButton = $('<button>').addClass("restart").text("Restart Game")
-    $('.container').append($restartButton)
+    $('.container').append($('<h2>').addClass("lose").text("You Lose :("))
+    const $restartButton = $('<button>').addClass("restart lose").text("Restart Game")
+    $('.container').append($restartButton.on("click", restartGame))
 }
 
 const youWin = () => {
@@ -28,7 +28,7 @@ const youWin = () => {
     $('.container').append($('<h2>').text("You Win :)"))
     const $restartButton = $('<button>').addClass("restart").text("Restart Game")
     $('.container').append($restartButton)
-    const $continueButton = $('<button>').addClass("restart").text("Continue Playing")
+    const $continueButton = $('<button>').addClass("continue").text("Continue Playing")
     $('.container').append($continueButton)
 }
 
@@ -51,6 +51,10 @@ const restartGame = () => {
     }
     isGameOver = false
     score = 0
+    //! change this later!
+    $('.lose').remove()
+    //! until here
+    startControls()
     startGame()
     renderBoard()
 }
@@ -309,12 +313,7 @@ const isStaticDown = () => {
     return true
 }
 
-
-
-
-//* Run Functions here
-const main = () => { 
-    startGame()
+const startControls = () => {
     $(document).on("keydown", (event) => {
         if (event.which === 37) { //? left
             if (isStaticLeft()) {
@@ -346,8 +345,13 @@ const main = () => {
             }
         }
     })
-    $(".restart").on("click", restartGame)
+}
 
+
+//* Run Functions here
+const main = () => { 
+    // startGame()
+    startControls()
     renderBoard()
     // console.log($('.tilerow').eq(0).children().eq(0).text())
     // const $row0 = $('.tilerow').eq(0)
