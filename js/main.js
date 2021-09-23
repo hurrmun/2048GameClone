@@ -24,11 +24,7 @@ const updateHighScore = () => {
 const gameOver = () => {
     updateHighScore()
     $(".continue").remove()
-    $(document).off("keydown")
-    $("#moveLeft").off("click", buttonLeft)
-    $("#moveRight").off("click", buttonRight)
-    $("#moveUp").off("click", buttonUp)
-    $("#moveDown").off("click", buttonDown)
+    stopControls()
     $('#modalLabel').text("You Lose!")
     $('#gameOverModal').modal({
         show: true
@@ -72,18 +68,11 @@ const restartGame = () => {
         board[i] = board[i].map((number) => number = 0)
     }
     isGameOver = false
+    isGameWon = false
     score = 0
     $(".continue").remove()
-    $(document).off("keydown")
-    $("#moveLeft").off("click", buttonLeft)
-    $("#moveRight").off("click", buttonRight)
-    $("#moveUp").off("click", buttonUp)
-    $("#moveDown").off("click", buttonDown)
+    stopControls()
     startControls()
-    $("#moveLeft").on("click", buttonLeft)
-    $("#moveRight").on("click", buttonRight)
-    $("#moveUp").on("click", buttonUp)
-    $("#moveDown").on("click", buttonDown)
     startGame()
     renderBoard()
 }
@@ -374,6 +363,18 @@ const startControls = () => {
             }
         }
     })
+    $("#moveLeft").on("click", buttonLeft)
+    $("#moveRight").on("click", buttonRight)
+    $("#moveUp").on("click", buttonUp)
+    $("#moveDown").on("click", buttonDown)
+}
+
+const stopControls = () => {
+    $(document).off("keydown")
+    $("#moveLeft").off("click", buttonLeft)
+    $("#moveRight").off("click", buttonRight)
+    $("#moveUp").off("click", buttonUp)
+    $("#moveDown").off("click", buttonDown)
 }
 
 const buttonLeft = () => {
@@ -419,10 +420,6 @@ const main = () => {
     startControls()
     renderBoard()
     const $newGameButton = $(".restart").on("click", restartGame)
-    const $buttonLeft = $("#moveLeft").on("click", buttonLeft)
-    const $buttonRight = $("#moveRight").on("click", buttonRight)
-    const $buttonUp = $("#moveUp").on("click", buttonUp)
-    const $buttonDown = $("#moveDown").on("click", buttonDown)
 }
 
 $(main)
