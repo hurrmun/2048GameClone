@@ -1,6 +1,6 @@
 //* Write Functions here
 
-// display: $('.tilerow').eq(0).children().eq(0)
+
 //* board state
 const board = [
     [ 0, 0, 0, 0 ], 
@@ -8,16 +8,11 @@ const board = [
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
 ] 
-// to select a tile you would need 2 parameters, the row and column and call board[row][column]
+
 let score = 0
 let highScore = 0
 let isGameOver = false
 let isGameWon = false
-// 4 counts for row
-// 12 counts for column
-// if 16 is reached, it means all adjacent tiles are unique
-
-// $('#gameOverModal').modal(show)
 
 const updateHighScore = () => {
     if (score > highScore) {
@@ -26,7 +21,6 @@ const updateHighScore = () => {
     }
 }
 
-//! WIP 
 const gameOver = () => {
     updateHighScore()
     $(document).off("keydown")
@@ -34,10 +28,6 @@ const gameOver = () => {
     $("#moveRight").off("click", buttonRight)
     $("#moveUp").off("click", buttonUp)
     $("#moveDown").off("click", buttonDown)
-    // $('.container').append($('<h2>').addClass("lose").text("You Lose :("))
-    // const $restartButton = $('<button>').addClass("restart lose").text("Restart Game")
-    // $('.container').append($restartButton.on("click", restartGame))
-    $(".continue").remove()
     $('#modalLabel').text("You Lose!")
     $('#gameOverModal').modal({
         show: true
@@ -58,16 +48,9 @@ const youWin = () => {
     const $continueButton = $('<button>').addClass("continue btn btn-outline-primary").text("Continue Playing")
     $continueButton.attr("data-dismiss", "modal").attr("type", "button")
     $('.modal-footer').append($continueButton.on("click", continuePlaying))
-    //! change this
-    // $('.container').append($('<h2>').addClass("win").text("You Win :)"))
-    // const $restartButton = $('<button>').addClass("restart win").text("Restart Game")
-    // $('.container').append($restartButton.on("click", restartGame))
-    // const $continueButton = $('<button>').addClass("continue win").text("Continue Playing")
-    // $('.container').append($continueButton.on("click", continuePlaying))
 }
 
 const continuePlaying = () => {
-    // $(".continue").remove()
     startControls()
     $("#moveLeft").on("click", buttonLeft)
     $("#moveRight").on("click", buttonRight)
@@ -101,15 +84,12 @@ const restartGame = () => {
     }
     isGameOver = false
     score = 0
+    $(".continue").remove()
     $(document).off("keydown")
     $("#moveLeft").off("click", buttonLeft)
     $("#moveRight").off("click", buttonRight)
     $("#moveUp").off("click", buttonUp)
     $("#moveDown").off("click", buttonDown)
-    //! change this later!
-    // $('.lose').remove()
-    // $('.win').remove()
-    //! until here
     startControls()
     $("#moveLeft").on("click", buttonLeft)
     $("#moveRight").on("click", buttonRight)
@@ -454,15 +434,8 @@ const main = () => {
     const $buttonRight = $("#moveRight").on("click", buttonRight)
     const $buttonUp = $("#moveUp").on("click", buttonUp)
     const $buttonDown = $("#moveDown").on("click", buttonDown)
-    // console.log($('.tilerow').eq(0).children().eq(0).text())
-    // const $row0 = $('.tilerow').eq(0)
-    // const $row0tiles = $row0.children()
-    // const $tile1 = $row0tiles.eq(0)
-    // console.log($tile1.text())
-    // test()
 }
 
 $(main)
 
-//keydown is better for arrow keys
 
