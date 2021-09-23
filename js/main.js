@@ -3,10 +3,10 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 2, 4, 2, 4 ], 
-    [ 64, 32, 64, 32 ], 
-    [ 2, 4, 512, 1024 ], 
-    [ 0, 64, 128, 0 ] 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
+    [ 0, 0, 0, 0 ] 
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 let score = 0
@@ -24,12 +24,11 @@ const gameOver = () => {
 }
 
 const youWin = () => {
-    $(document).off("keydown")
     $('.container').append($('<h2>').text("You Win :)"))
     const $restartButton = $('<button>').addClass("restart").text("Restart Game")
     $('.container').append($restartButton)
-    const $continueButton = $('<button>').addClass("continue").text("Continue Playing")
-    $('.container').append($continueButton)
+    // const $continueButton = $('<button>').addClass("continue").text("Continue Playing")
+    // $('.container').append($continueButton)
 }
 
 const check2048 = (number) => number === 2048
@@ -51,6 +50,7 @@ const restartGame = () => {
     }
     isGameOver = false
     score = 0
+    $(document).off("keydown")
     //! change this later!
     $('.lose').remove()
     //! until here
@@ -99,7 +99,7 @@ const mergeTilesLeft = () => {
 }
 
 const mergeTilesRight = () => {
-    for (let i = 3; i >= 0; i--) {
+    for (let i = 0; i < 4; i++) {
         for (let j = 3; j > 0; j--) {
             if (board[i][j] === board[i][j - 1]) {
                 board[i][j] = board[i][j] * 2
@@ -350,9 +350,10 @@ const startControls = () => {
 
 //* Run Functions here
 const main = () => { 
-    // startGame()
+    startGame()
     startControls()
     renderBoard()
+    const $newGameButton = $(".restart").on("click", restartGame)
     // console.log($('.tilerow').eq(0).children().eq(0).text())
     // const $row0 = $('.tilerow').eq(0)
     // const $row0tiles = $row0.children()
