@@ -355,28 +355,28 @@ const isStaticDown = () => {
 
 const startControls = () => {
     $(document).on("keydown", (event) => {
-        if (event.which === 37) { //? left
+        if (event.which === 37 || event.which === 65) { //? left
             if (isStaticLeft()) {
                 console.log("Invalid move!")
             } else {
                 moveTilesLeft()
                 checkGameOver()
             }
-        } else if (event.which === 39) { //? right
+        } else if (event.which === 39 || event.which === 68) { //? right
             if (isStaticRight()) {
                 console.log("Invalid move!")
             } else {
                 moveTilesRight()
                 checkGameOver()
             }
-        } else if (event.which === 38) { //? up
+        } else if (event.which === 38 || event.which === 87) { //? up
             if (isStaticUp()) {
                 console.log("Invalid move!")
             } else {
                 moveTilesUp()
                 checkGameOver()
             }
-        } else if (event.which === 40) { //? down
+        } else if (event.which === 40 || event.which === 83) { //? down
             if (isStaticDown()) {
                 console.log("Invalid move!")
             } else {
