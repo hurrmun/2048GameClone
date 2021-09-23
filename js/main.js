@@ -3,7 +3,7 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
+    [ 1024, 1024, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
@@ -11,6 +11,7 @@ const board = [
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 let score = 0
 let isGameOver = false
+let isGameWon = false
 // 4 counts for row
 // 12 counts for column
 // if 16 is reached, it means all adjacent tiles are unique
@@ -24,12 +25,20 @@ const gameOver = () => {
 }
 
 const youWin = () => {
-    $('.container').append($('<h2>').text("You Win :)"))
-    const $restartButton = $('<button>').addClass("restart").text("Restart Game")
-    $('.container').append($restartButton)
-    // const $continueButton = $('<button>').addClass("continue").text("Continue Playing")
-    // $('.container').append($continueButton)
+    isGameWon = true
+    $(document).off("keydown")
+    $('.container').append($('<h2>').addClass("win").text("You Win :)"))
+    const $restartButton = $('<button>').addClass("restart win").text("Restart Game")
+    $('.container').append($restartButton.on("click", restartGame))
+    const $continueButton = $('<button>').addClass("continue win").text("Continue Playing")
+    $('.container').append($continueButton.on("click", continuePlaying))
 }
+
+const continuePlaying = () => {
+    $(".win").remove()
+    startControls()
+}
+
 
 const check2048 = (number) => number === 2048
 
@@ -39,7 +48,11 @@ const checkGameOver = () => {
         isGameOver = true
         return gameOver()
     } else if (allTiles.some(check2048)) {
-        return youWin()
+        if (isGameWon) {
+            return null
+        } else {
+            return youWin()
+        }
     }
     return isGameOver = false
 }
@@ -53,6 +66,7 @@ const restartGame = () => {
     $(document).off("keydown")
     //! change this later!
     $('.lose').remove()
+    $('.win').remove()
     //! until here
     startControls()
     startGame()
