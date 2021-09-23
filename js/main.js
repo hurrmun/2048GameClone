@@ -3,7 +3,7 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 1024, 1024, 0, 0 ], 
+    [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
@@ -361,6 +361,42 @@ const startControls = () => {
     })
 }
 
+const buttonLeft = () => {
+    if (isStaticLeft()) {
+        console.log("Invalid move!")
+    } else {
+        moveTilesLeft()
+        checkGameOver()
+    }
+}
+
+const buttonRight = () => {
+    if (isStaticRight()) {
+        console.log("Invalid move!")
+    } else {
+        moveTilesRight()
+        checkGameOver()
+    }
+}
+
+const buttonUp = () => {
+    if (isStaticUp()) {
+        console.log("Invalid move!")
+    } else {
+        moveTilesUp()
+        checkGameOver()
+    }
+}
+
+const buttonDown = () => {
+    if (isStaticDown()) {
+        console.log("Invalid move!")
+    } else {
+        moveTilesDown()
+        checkGameOver()
+    }
+}
+
 
 //* Run Functions here
 const main = () => { 
@@ -368,6 +404,10 @@ const main = () => {
     startControls()
     renderBoard()
     const $newGameButton = $(".restart").on("click", restartGame)
+    const $buttonLeft = $("#moveLeft").on("click", buttonLeft)
+    const $buttonRight = $("#moveRight").on("click", buttonRight)
+    const $buttonUp = $("#moveUp").on("click", buttonUp)
+    const $buttonDown = $("#moveDown").on("click", buttonDown)
     // console.log($('.tilerow').eq(0).children().eq(0).text())
     // const $row0 = $('.tilerow').eq(0)
     // const $row0tiles = $row0.children()

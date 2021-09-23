@@ -23,3 +23,21 @@ body {
 b {
   font-weight: 600;
 }
+
+.controlButton {
+  background-color: #ff964f;
+  border-radius: 1rem;
+  border: none;
+  height: 5rem;
+  width: 5rem;
+  margin: 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.controlButton:hover {
+  cursor: pointer;
+  background-color: #ec5f00;
+  transition: 200ms;
+}
