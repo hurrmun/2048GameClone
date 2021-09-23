@@ -3,21 +3,30 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 1024, 1024, 0, 0 ], 
+    [ 512, 512, 512, 512 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
 ] 
 // to select a tile you would need 2 parameters, the row and column and call board[row][column]
 let score = 0
+let highScore = 0
 let isGameOver = false
 let isGameWon = false
 // 4 counts for row
 // 12 counts for column
 // if 16 is reached, it means all adjacent tiles are unique
 
+const updateHighScore = () => {
+    if (score > highScore) {
+        highScore = score
+        $(".highScore").text(highScore)
+    }
+}
+
 //! WIP 
 const gameOver = () => {
+    updateHighScore()
     $(document).off("keydown")
     $("#moveLeft").off("click", buttonLeft)
     $("#moveRight").off("click", buttonRight)
@@ -55,6 +64,7 @@ const continuePlaying = () => {
 const check2048 = (number) => number === 2048
 
 const checkGameOver = () => {
+    updateHighScore()
     const allTiles = board[0].concat(board[1], board[2], board[3])
     if (isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown()) {
         isGameOver = true
@@ -70,6 +80,7 @@ const checkGameOver = () => {
 }
 
 const restartGame = () => {
+    updateHighScore()
     for (let i = 0; i < board.length; i++) {
         board[i] = board[i].map((number) => number = 0)
     }
