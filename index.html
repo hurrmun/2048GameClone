@@ -11,56 +11,93 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;600;900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
       crossorigin="anonymous"
     ></script>
     <script src="js/main.js"></script>
   </head>
   <body>
     <div class="container">
-      <h1>2048</h1>
-      <p>
-        <b>HOW TO PLAY:</b> Use your <b>arrow keys or buttons below</b> to move
-        the tiles. Tiles with the same number <b>merge into one</b> when they
-        touch. Add them up to reach <b>2048!</b>
-      </p>
-      <div>High Score: <span class="highScore">0</span></div>
-      <div>Score: <span class="gameScore">0</span></div>
-      <button class="restart">New Game</button>
-      <div id="gameboard">
-        <div class="tilerow">
-          <div class="tile">1024</div>
-          <div class="tile">8</div>
-          <div class="tile">16</div>
-          <div class="tile">256</div>
+      <div class="row justify-content-center align-items-center headContent">
+        <!-- instrunctions and title -->
+        <div class="col-md-4 col-8">
+          <h1>2048</h1>
+          <p>
+            <b>HOW TO PLAY:</b> Use your <b>arrow keys or buttons below</b> to
+            move the tiles. Tiles with the same number
+            <b>merge into one</b> when they touch. Add them up to reach
+            <b>2048!</b>
+          </p>
         </div>
-        <div class="tilerow">
-          <div class="tile">1024</div>
-          <div class="tile">8</div>
-          <div class="tile">16</div>
-          <div class="tile">256</div>
-        </div>
-        <div class="tilerow">
-          <div class="tile">1024</div>
-          <div class="tile">8</div>
-          <div class="tile">16</div>
-          <div class="tile">256</div>
-        </div>
-        <div class="tilerow">
-          <div class="tile">1024</div>
-          <div class="tile">8</div>
-          <div class="tile">16</div>
-          <div class="tile">256</div>
+        <!-- score and restart -->
+        <div class="col-md-2 col-4">
+          <div class="score">
+            <p>High Score</p>
+            <p class="highScore">0</p>
+          </div>
+          <div class="score">
+            <p>Score</p>
+            <p class="gameScore">0</p>
+          </div>
+          <button class="restart">New Game</button>
         </div>
       </div>
-      <div class="controls">
-        <button class="controlButton" id="moveLeft">&larr;</button>
-        <button class="controlButton" id="moveUp">&uarr;</button>
-        <button class="controlButton" id="moveDown">&darr;</button>
-        <button class="controlButton" id="moveRight">&rarr;</button>
+      <!-- board -->
+      <div class="row justify-content-center align-items-center">
+        <div class="" id="gameboard">
+          <div class="tilerow">
+            <div class="tile">1024</div>
+            <div class="tile">8</div>
+            <div class="tile">16</div>
+            <div class="tile">256</div>
+          </div>
+          <div class="tilerow">
+            <div class="tile">1024</div>
+            <div class="tile">8</div>
+            <div class="tile">16</div>
+            <div class="tile">256</div>
+          </div>
+          <div class="tilerow">
+            <div class="tile">1024</div>
+            <div class="tile">8</div>
+            <div class="tile">16</div>
+            <div class="tile">256</div>
+          </div>
+          <div class="tilerow">
+            <div class="tile">1024</div>
+            <div class="tile">8</div>
+            <div class="tile">16</div>
+            <div class="tile">256</div>
+          </div>
+        </div>
+      </div>
+      <!-- button controls -->
+      <div class="row justify-content-center">
+        <div class="row controls">
+          <button class="controlButton" id="moveLeft">&larr;</button>
+          <button class="controlButton" id="moveUp">&uarr;</button>
+          <button class="controlButton" id="moveDown">&darr;</button>
+          <button class="controlButton" id="moveRight">&rarr;</button>
+        </div>
       </div>
     </div>
   </body>

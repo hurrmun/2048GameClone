@@ -2,6 +2,7 @@ body {
   font-family: "Work Sans", sans-serif;
   /* weights 300, 600, 900 */
   font-size: 20px;
+  background-color: #e9edeb;
 }
 
 .tilerow {
@@ -18,19 +19,48 @@ body {
   font-size: 2rem;
   font-weight: 600;
   color: white;
+  border-radius: 0.2rem;
+}
+
+.headContent {
+  margin: 1rem;
+}
+
+.restart {
+  margin-top: 1rem;
+}
+
+.score p {
+  margin-bottom: 0.2rem;
+}
+
+.highScore,
+.gameScore {
+  font-weight: 600;
+  font-size: 2rem;
 }
 
 b {
   font-weight: 600;
 }
 
+h1 {
+  font-weight: 900;
+  font-size: 4rem;
+  color: #5e6572;
+}
+
+p {
+  color: #5e6572;
+}
+
 .controlButton {
-  background-color: #ff964f;
+  background-color: #5e6572;
   border-radius: 1rem;
   border: none;
   height: 5rem;
   width: 5rem;
-  margin: 0.5rem;
+  margin: 1rem 0.5rem;
   font-size: 2rem;
   font-weight: 600;
   color: white;
@@ -40,4 +70,10 @@ b {
   cursor: pointer;
   background-color: #ec5f00;
   transition: 200ms;
+}
+
+#gameboard {
+  background-color: #99ada6;
+  padding: 1rem;
+  border-radius: 1rem;
 }

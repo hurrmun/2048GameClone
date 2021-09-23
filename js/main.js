@@ -3,7 +3,7 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 512, 512, 512, 512 ], 
+    [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
