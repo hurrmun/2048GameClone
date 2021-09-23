@@ -23,6 +23,7 @@ const updateHighScore = () => {
 
 const gameOver = () => {
     updateHighScore()
+    $(".continue").remove()
     $(document).off("keydown")
     $("#moveLeft").off("click", buttonLeft)
     $("#moveRight").off("click", buttonRight)
