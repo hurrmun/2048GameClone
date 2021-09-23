@@ -3,7 +3,7 @@
 // display: $('.tilerow').eq(0).children().eq(0)
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
+    [ 1024, 1024, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
@@ -19,6 +19,10 @@ let isGameWon = false
 //! WIP 
 const gameOver = () => {
     $(document).off("keydown")
+    $("#moveLeft").off("click", buttonLeft)
+    $("#moveRight").off("click", buttonRight)
+    $("#moveUp").off("click", buttonUp)
+    $("#moveDown").off("click", buttonDown)
     $('.container').append($('<h2>').addClass("lose").text("You Lose :("))
     const $restartButton = $('<button>').addClass("restart lose").text("Restart Game")
     $('.container').append($restartButton.on("click", restartGame))
@@ -27,6 +31,10 @@ const gameOver = () => {
 const youWin = () => {
     isGameWon = true
     $(document).off("keydown")
+    $("#moveLeft").off("click", buttonLeft)
+    $("#moveRight").off("click", buttonRight)
+    $("#moveUp").off("click", buttonUp)
+    $("#moveDown").off("click", buttonDown)
     $('.container').append($('<h2>').addClass("win").text("You Win :)"))
     const $restartButton = $('<button>').addClass("restart win").text("Restart Game")
     $('.container').append($restartButton.on("click", restartGame))
@@ -37,6 +45,10 @@ const youWin = () => {
 const continuePlaying = () => {
     $(".win").remove()
     startControls()
+    $("#moveLeft").on("click", buttonLeft)
+    $("#moveRight").on("click", buttonRight)
+    $("#moveUp").on("click", buttonUp)
+    $("#moveDown").on("click", buttonDown)
 }
 
 
@@ -64,11 +76,19 @@ const restartGame = () => {
     isGameOver = false
     score = 0
     $(document).off("keydown")
+    $("#moveLeft").off("click", buttonLeft)
+    $("#moveRight").off("click", buttonRight)
+    $("#moveUp").off("click", buttonUp)
+    $("#moveDown").off("click", buttonDown)
     //! change this later!
     $('.lose').remove()
     $('.win').remove()
     //! until here
     startControls()
+    $("#moveLeft").on("click", buttonLeft)
+    $("#moveRight").on("click", buttonRight)
+    $("#moveUp").on("click", buttonUp)
+    $("#moveDown").on("click", buttonDown)
     startGame()
     renderBoard()
 }
