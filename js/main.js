@@ -17,6 +17,8 @@ let isGameWon = false
 // 12 counts for column
 // if 16 is reached, it means all adjacent tiles are unique
 
+// $('#gameOverModal').modal(show)
+
 const updateHighScore = () => {
     if (score > highScore) {
         highScore = score
@@ -32,9 +34,14 @@ const gameOver = () => {
     $("#moveRight").off("click", buttonRight)
     $("#moveUp").off("click", buttonUp)
     $("#moveDown").off("click", buttonDown)
-    $('.container').append($('<h2>').addClass("lose").text("You Lose :("))
-    const $restartButton = $('<button>').addClass("restart lose").text("Restart Game")
-    $('.container').append($restartButton.on("click", restartGame))
+    // $('.container').append($('<h2>').addClass("lose").text("You Lose :("))
+    // const $restartButton = $('<button>').addClass("restart lose").text("Restart Game")
+    // $('.container').append($restartButton.on("click", restartGame))
+    $(".continue").remove()
+    $('#modalLabel').text("You Lose!")
+    $('#gameOverModal').modal({
+        show: true
+    })
 }
 
 const youWin = () => {
@@ -44,15 +51,23 @@ const youWin = () => {
     $("#moveRight").off("click", buttonRight)
     $("#moveUp").off("click", buttonUp)
     $("#moveDown").off("click", buttonDown)
-    $('.container').append($('<h2>').addClass("win").text("You Win :)"))
-    const $restartButton = $('<button>').addClass("restart win").text("Restart Game")
-    $('.container').append($restartButton.on("click", restartGame))
-    const $continueButton = $('<button>').addClass("continue win").text("Continue Playing")
-    $('.container').append($continueButton.on("click", continuePlaying))
+    $('#modalLabel').text("You Win!")
+    $('#gameOverModal').modal({
+        show: true
+    })
+    const $continueButton = $('<button>').addClass("continue btn btn-outline-primary").text("Continue Playing")
+    $continueButton.attr("data-dismiss", "modal").attr("type", "button")
+    $('.modal-footer').append($continueButton.on("click", continuePlaying))
+    //! change this
+    // $('.container').append($('<h2>').addClass("win").text("You Win :)"))
+    // const $restartButton = $('<button>').addClass("restart win").text("Restart Game")
+    // $('.container').append($restartButton.on("click", restartGame))
+    // const $continueButton = $('<button>').addClass("continue win").text("Continue Playing")
+    // $('.container').append($continueButton.on("click", continuePlaying))
 }
 
 const continuePlaying = () => {
-    $(".win").remove()
+    // $(".continue").remove()
     startControls()
     $("#moveLeft").on("click", buttonLeft)
     $("#moveRight").on("click", buttonRight)
@@ -92,8 +107,8 @@ const restartGame = () => {
     $("#moveUp").off("click", buttonUp)
     $("#moveDown").off("click", buttonDown)
     //! change this later!
-    $('.lose').remove()
-    $('.win').remove()
+    // $('.lose').remove()
+    // $('.win').remove()
     //! until here
     startControls()
     $("#moveLeft").on("click", buttonLeft)
@@ -397,8 +412,8 @@ const buttonLeft = () => {
         console.log("Invalid move!")
     } else {
         moveTilesLeft()
-        checkGameOver()
     }
+    checkGameOver()
 }
 
 const buttonRight = () => {
@@ -406,8 +421,8 @@ const buttonRight = () => {
         console.log("Invalid move!")
     } else {
         moveTilesRight()
-        checkGameOver()
     }
+    checkGameOver()
 }
 
 const buttonUp = () => {
@@ -415,8 +430,8 @@ const buttonUp = () => {
         console.log("Invalid move!")
     } else {
         moveTilesUp()
-        checkGameOver()
     }
+    checkGameOver()
 }
 
 const buttonDown = () => {
@@ -424,8 +439,8 @@ const buttonDown = () => {
         console.log("Invalid move!")
     } else {
         moveTilesDown()
-        checkGameOver()
     }
+    checkGameOver()
 }
 
 

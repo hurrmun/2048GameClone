@@ -52,13 +52,15 @@
         <div class="col-md-2 col-4">
           <div class="score">
             <p>High Score</p>
-            <p class="highScore">0</p>
+            <h4 class="highScore">0</h4>
           </div>
           <div class="score">
             <p>Score</p>
-            <p class="gameScore">0</p>
+            <h4 class="gameScore">0</h4>
           </div>
-          <button class="restart">New Game</button>
+          <button class="newGameButton restart btn btn-outline-dark btn-block">
+            New Game
+          </button>
         </div>
       </div>
       <!-- board -->
@@ -99,6 +101,48 @@
           <button class="controlButton" id="moveRight">&rarr;</button>
         </div>
       </div>
+      <!-- win or lose modal -->
+      <div
+        class="modal fade"
+        id="gameOverModal"
+        tabindex="-1"
+        aria-labelledby="modalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">You Lose!</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-dark restart"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                Restart Game
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#gameOverModal"
+      >
+        Launch demo modal
+      </button> -->
     </div>
   </body>
 </html>

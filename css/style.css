@@ -37,22 +37,21 @@ body {
   }
 }
 
-.headContent {
-  margin: 1rem;
-}
-
-.restart {
-  margin-top: 1rem;
+.newGameButton {
+  margin: 1rem auto;
 }
 
 .score p {
+  font-size: 1rem;
   margin-bottom: 0.2rem;
+  text-align: center;
 }
 
 .highScore,
 .gameScore {
   font-weight: 600;
   font-size: 2rem;
+  text-align: center;
 }
 
 b {
@@ -76,7 +75,7 @@ p {
   height: 4rem;
   width: 4rem;
   margin: 1rem 0.5rem;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: white;
 }
