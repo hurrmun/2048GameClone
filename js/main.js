@@ -3,7 +3,7 @@
 
 //* board state
 const board = [
-    [ 0, 0, 0, 0 ], 
+    [ 512, 512, 512, 512 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
@@ -37,27 +37,15 @@ const gameOver = () => {
 
 const youWin = () => {
     isGameWon = true
-    $(document).off("keydown")
-    $("#moveLeft").off("click", buttonLeft)
-    $("#moveRight").off("click", buttonRight)
-    $("#moveUp").off("click", buttonUp)
-    $("#moveDown").off("click", buttonDown)
     $('#modalLabel').text("You Win!")
     $('#gameOverModal').modal({
         show: true
     })
     const $continueButton = $('<button>').addClass("continue btn btn-outline-primary").text("Continue Playing")
     $continueButton.attr("data-dismiss", "modal").attr("type", "button")
-    $('.modal-footer').append($continueButton.on("click", continuePlaying))
+    $('.modal-footer').append($continueButton)
 }
 
-const continuePlaying = () => {
-    startControls()
-    $("#moveLeft").on("click", buttonLeft)
-    $("#moveRight").on("click", buttonRight)
-    $("#moveUp").on("click", buttonUp)
-    $("#moveDown").on("click", buttonDown)
-}
 
 
 const check2048 = (number) => number === 2048
