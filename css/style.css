@@ -20,6 +20,7 @@ body {
   font-weight: 600;
   color: white;
   border-radius: 0.2rem;
+  transition-duration: 400ms;
 }
 
 @media (min-width: 576px) {
@@ -52,6 +53,7 @@ body {
   font-weight: 600;
   font-size: 2rem;
   text-align: center;
+  color: #5e6572;
 }
 
 b {
