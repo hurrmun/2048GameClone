@@ -263,25 +263,31 @@ const moveTilesDown = () => {
 const random1to4 = () => Math.floor(Math.random()*4)
 const random1to10 = () => Math.floor(Math.random()*10)
 
-
 const generateTile = () => {
-    let y = random1to4()
-    let x = random1to4()
-    //* when selected tile is filled, find a new empty tile
-    while (board[y][x] !== 0) {
-        y = random1to4()
-        x = random1to4()
-    }
+    const arr = board[0].concat(board[1], board[2], board[3],)
+    const zeroIndex = arr.map((zeroTile, index) => {
+        if (zeroTile === 0) {
+            return index
+        } else {
+            return null
+        }
+    })
+    const zeroIndexArr = zeroIndex.filter(element => element !== null)
+    const randomZeroIndex = Math.floor(Math.random() * zeroIndexArr.length)
+    const randomZeroTileIndex = zeroIndexArr[randomZeroIndex]
+
+    const randomRow = Math.floor(randomZeroTileIndex/4)
+    const randomColumn = randomZeroTileIndex % 4
     const randomNewTile = [2, 4]
     if (random1to10() < 9) {
-        board[y][x] = randomNewTile[0]
+        board[randomRow][randomColumn] = randomNewTile[0]
         score += 10
     } else {
-        board[y][x] = randomNewTile[1]
+        board[randomRow][randomColumn] = randomNewTile[1]
         score += 20
     }
+    
 }
-
 
 //* Starts the game with 2 randomly generated tiles
 const startGame = () => {
