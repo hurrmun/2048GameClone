@@ -8,10 +8,22 @@ const board = [
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
 ] 
+// const board = [
+//     [ 512, 512, 512, 512 ], 
+//     [ 0, 0, 0, 0 ], 
+//     [ 0, 0, 0, 0 ], 
+//     [ 0, 0, 0, 0 ] 
+// ] 
+// const board = [
+//     [ 2, 32, 64, 4 ], 
+//     [ 128, 16, 256, 512 ], 
+//     [ 32, 4, 64, 8 ], 
+//     [ 8, 0, 0, 128 ] 
+// ] 
 
 let score = 0
 let highScore = 0
-let isGameOver = false
+// let isGameOver = false
 let isGameWon = false
 
 const updateHighScore = () => {
@@ -22,7 +34,6 @@ const updateHighScore = () => {
 }
 
 const gameOver = () => {
-    updateHighScore()
     $(".continue").remove()
     stopControls()
     $('#modalLabel').text("You Lose!")
@@ -42,15 +53,12 @@ const youWin = () => {
     $('.modal-footer').append($continueButton)
 }
 
-
-
 const check2048 = (number) => number === 2048
 
 const checkGameOver = () => {
-    updateHighScore()
     const allTiles = board[0].concat(board[1], board[2], board[3])
     if (isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown()) {
-        isGameOver = true
+        // isGameOver = true
         return gameOver()
     } else if (allTiles.some(check2048)) {
         if (isGameWon) {
@@ -63,11 +71,11 @@ const checkGameOver = () => {
 }
 
 const restartGame = () => {
-    updateHighScore()
+    // updateHighScore()
     for (let i = 0; i < board.length; i++) {
         board[i] = board[i].map((number) => number = 0)
     }
-    isGameOver = false
+    // isGameOver = false
     isGameWon = false
     score = 0
     $(".continue").remove()
@@ -153,7 +161,8 @@ const shiftTilesLeft = () => {
     for (let i = 0; i < board.length; i++ ) {
         //* sorts the board so 0 is pushed to the right
         board[i].sort((a, b) => {
-            if (!b) {
+            //? if b is 0 sort a before b
+            if (b === 0) {
                 return -1
             }
         })
@@ -165,7 +174,8 @@ const shiftTilesRight = () => {
     for (let i = 0; i < board.length; i++ ) {
         //* sorts the board so 0 is pushed to the right
         board[i].sort((a, b) => {
-            if (!a) {
+            //? if a is 0 sort a before b
+            if (a === 0) {
                 return -1
             }
         })
@@ -339,6 +349,7 @@ const startControls = () => {
             } else {
                 moveTilesLeft()
                 checkGameOver()
+                updateHighScore()
             }
         } else if (event.which === 39 || event.which === 68) { //? right
             if (isStaticRight()) {
@@ -346,6 +357,7 @@ const startControls = () => {
             } else {
                 moveTilesRight()
                 checkGameOver()
+                updateHighScore()
             }
         } else if (event.which === 38 || event.which === 87) { //? up
             if (isStaticUp()) {
@@ -353,6 +365,7 @@ const startControls = () => {
             } else {
                 moveTilesUp()
                 checkGameOver()
+                updateHighScore()
             }
         } else if (event.which === 40 || event.which === 83) { //? down
             if (isStaticDown()) {
@@ -360,6 +373,7 @@ const startControls = () => {
             } else {
                 moveTilesDown()
                 checkGameOver()
+                updateHighScore()
             }
         }
     })
@@ -382,8 +396,9 @@ const buttonLeft = () => {
         console.log("Invalid move!")
     } else {
         moveTilesLeft()
+        checkGameOver()
+        updateHighScore()
     }
-    checkGameOver()
 }
 
 const buttonRight = () => {
@@ -391,8 +406,9 @@ const buttonRight = () => {
         console.log("Invalid move!")
     } else {
         moveTilesRight()
+        checkGameOver()
+        updateHighScore()
     }
-    checkGameOver()
 }
 
 const buttonUp = () => {
@@ -400,8 +416,9 @@ const buttonUp = () => {
         console.log("Invalid move!")
     } else {
         moveTilesUp()
+        checkGameOver()
+        updateHighScore()
     }
-    checkGameOver()
 }
 
 const buttonDown = () => {
@@ -409,8 +426,9 @@ const buttonDown = () => {
         console.log("Invalid move!")
     } else {
         moveTilesDown()
+        checkGameOver()
+        updateHighScore()
     }
-    checkGameOver()
 }
 
 
