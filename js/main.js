@@ -8,22 +8,9 @@ const board = [
     [ 0, 0, 0, 0 ], 
     [ 0, 0, 0, 0 ] 
 ] 
-// const board = [
-//     [ 512, 512, 512, 512 ], 
-//     [ 0, 0, 0, 0 ], 
-//     [ 0, 0, 0, 0 ], 
-//     [ 0, 0, 0, 0 ] 
-// ] 
-// const board = [
-//     [ 2, 32, 64, 4 ], 
-//     [ 128, 16, 256, 512 ], 
-//     [ 32, 4, 64, 8 ], 
-//     [ 8, 0, 0, 128 ] 
-// ] 
 
 let score = 0
 let highScore = 0
-// let isGameOver = false
 let isGameWon = false
 
 const updateHighScore = () => {
@@ -58,7 +45,6 @@ const check2048 = (number) => number === 2048
 const checkGameOver = () => {
     const allTiles = board[0].concat(board[1], board[2], board[3])
     if (isStaticLeft() && isStaticRight() && isStaticUp() && isStaticDown()) {
-        // isGameOver = true
         return gameOver()
     } else if (allTiles.some(check2048)) {
         if (isGameWon) {
@@ -67,15 +53,12 @@ const checkGameOver = () => {
             return youWin()
         }
     }
-    return isGameOver = false
 }
 
 const restartGame = () => {
-    // updateHighScore()
     for (let i = 0; i < board.length; i++) {
         board[i] = board[i].map((number) => number = 0)
     }
-    // isGameOver = false
     isGameWon = false
     score = 0
     $(".continue").remove()
@@ -114,8 +97,8 @@ const renderBoard = () => {
 
 //* Merging Tiles
 const mergeTilesLeft = () => {
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length - 1; j++) {
             if (board[i][j] === board[i][j + 1]) {
                 board[i][j] = board[i][j] * 2
                 board[i][j+1] = 0
@@ -125,8 +108,8 @@ const mergeTilesLeft = () => {
 }
 
 const mergeTilesRight = () => {
-    for (let i = 0; i < 4; i++) {
-        for (let j = 3; j > 0; j--) {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = board[i].length - 1; j > 0; j--) {
             if (board[i][j] === board[i][j - 1]) {
                 board[i][j] = board[i][j] * 2
                 board[i][j-1] = 0
@@ -136,8 +119,8 @@ const mergeTilesRight = () => {
 }
 
 const mergeTilesUp = () => {
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 4; j++) {
+    for (let i = 0; i < board.length - 1; i++) {
+        for (let j = 0; j < board[i].length; j++) {
             if (board[i][j] === board[i + 1][j]) {
                 board[i][j] = board[i][j] * 2
                 board[i + 1][j] = 0
@@ -147,8 +130,8 @@ const mergeTilesUp = () => {
 }
 
 const mergeTilesDown = () => {
-    for (let i = 3; i > 0; i--) {
-        for (let j = 0; j < 4; j++) {
+    for (let i = board.length - 1; i > 0; i--) {
+        for (let j = 0; j < board[i].length; j++) {
             if (board[i][j] === board[i - 1][j]) {
                 board[i][j] = board[i][j] * 2
                 board[i - 1][j] = 0
@@ -185,7 +168,7 @@ const shiftTilesRight = () => {
 
 
 const shiftTilesUp = () => {
-    for (let i = 0; i < board.length; i++ ) {
+    for (let i = 1; i < board.length; i++ ) {
         for (let j = 0; j < board[i].length; j++) {
             //* checks if there is a value on the board and if it is the first row
             if (board[i][j] && i !== 0) {
@@ -230,39 +213,28 @@ const moveTilesLeft = () => {
     shiftTilesLeft();
     mergeTilesLeft();
     shiftTilesLeft();
-    generateTile()
-    renderBoard()
 }
 
 const moveTilesRight = () => {
     shiftTilesRight();
     mergeTilesRight();
     shiftTilesRight();
-    generateTile()
-    renderBoard()
 }
 
 const moveTilesUp = () => {
     shiftTilesUp();
     mergeTilesUp();
     shiftTilesUp();
-    generateTile()
-    renderBoard()
 }
 
 const moveTilesDown = () => {
     shiftTilesDown();
     mergeTilesDown();
     shiftTilesDown();
-    generateTile()
-    renderBoard()
 }
 
 
 //* Generate a random tile on an empty space
-const random1to4 = () => Math.floor(Math.random()*4)
-const random1to10 = () => Math.floor(Math.random()*10)
-
 const generateTile = () => {
     const arr = board[0].concat(board[1], board[2], board[3],)
     const zeroIndex = arr.map((zeroTile, index) => {
@@ -279,6 +251,7 @@ const generateTile = () => {
     const randomRow = Math.floor(randomZeroTileIndex/4)
     const randomColumn = randomZeroTileIndex % 4
     const randomNewTile = [2, 4]
+    const random1to10 = () => Math.floor(Math.random()*10)
     if (random1to10() < 9) {
         board[randomRow][randomColumn] = randomNewTile[0]
         score += 10
@@ -299,8 +272,8 @@ const startGame = () => {
 //* Check if the board is static or not
 
 const isStaticLeft = () => {
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length - 1; j++) {
             //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
             if (board[i][j] === 0 && board[i][j+1] || board[i][j] === board[i][j+1] && board[i][j] !== 0) {
                 return false
@@ -311,8 +284,8 @@ const isStaticLeft = () => {
 }
 
 const isStaticRight = () => {
-    for (let i = 0; i < 4; i++) {
-        for (let j = 3; j > 0; j--) {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = board[i].length - 1; j > 0; j--) {
             //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
             if (board[i][j] === 0 && board[i][j-1] || board[i][j] === board[i][j-1] && board[i][j] !== 0) {
                 return false
@@ -324,8 +297,8 @@ const isStaticRight = () => {
 
 
 const isStaticUp = () => {
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 4; j++) {
+    for (let i = 0; i < board.length - 1; i++) {
+        for (let j = 0; j < board[i].length; j++) {
             //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
             if (board[i][j] === 0 && board[i+1][j] || board[i][j] === board[i+1][j] && board[i][j] !== 0) {
                 return false
@@ -336,8 +309,8 @@ const isStaticUp = () => {
 }
 
 const isStaticDown = () => {
-    for (let i = 3; i > 0; i--) {
-        for (let j = 0; j < 4; j++) {
+    for (let i = board.length - 1; i > 0; i--) {
+        for (let j = 0; j < board[i].length; j++) {
             //? if current tile is a 0 and the next tile has a value not OR if two tiles have the same value
             if (board[i][j] === 0 && board[i-1][j] || board[i][j] === board[i-1][j] && board[i][j] !== 0) {
                 return false
@@ -354,32 +327,40 @@ const startControls = () => {
                 console.log("Invalid move!")
             } else {
                 moveTilesLeft()
-                checkGameOver()
+                generateTile()
+                renderBoard()
                 updateHighScore()
+                checkGameOver()
             }
         } else if (event.which === 39 || event.which === 68) { //? right
             if (isStaticRight()) {
                 console.log("Invalid move!")
             } else {
                 moveTilesRight()
-                checkGameOver()
+                generateTile()
+                renderBoard()
                 updateHighScore()
+                checkGameOver()
             }
         } else if (event.which === 38 || event.which === 87) { //? up
             if (isStaticUp()) {
                 console.log("Invalid move!")
             } else {
                 moveTilesUp()
-                checkGameOver()
+                generateTile()
+                renderBoard()
                 updateHighScore()
+                checkGameOver()
             }
         } else if (event.which === 40 || event.which === 83) { //? down
             if (isStaticDown()) {
                 console.log("Invalid move!")
             } else {
                 moveTilesDown()
-                checkGameOver()
+                generateTile()
+                renderBoard()
                 updateHighScore()
+                checkGameOver()
             }
         }
     })
@@ -402,6 +383,8 @@ const buttonLeft = () => {
         console.log("Invalid move!")
     } else {
         moveTilesLeft()
+        generateTile()
+        renderBoard()
         checkGameOver()
         updateHighScore()
     }
@@ -412,6 +395,8 @@ const buttonRight = () => {
         console.log("Invalid move!")
     } else {
         moveTilesRight()
+        generateTile()
+        renderBoard()
         checkGameOver()
         updateHighScore()
     }
@@ -422,6 +407,8 @@ const buttonUp = () => {
         console.log("Invalid move!")
     } else {
         moveTilesUp()
+        generateTile()
+        renderBoard()
         checkGameOver()
         updateHighScore()
     }
@@ -432,11 +419,12 @@ const buttonDown = () => {
         console.log("Invalid move!")
     } else {
         moveTilesDown()
+        generateTile()
+        renderBoard()
         checkGameOver()
         updateHighScore()
     }
 }
-
 
 //* Run Functions here
 const main = () => { 
